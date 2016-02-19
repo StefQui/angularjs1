@@ -1,0 +1,118 @@
+<div class="wrapper wrapper-content animated fadeInRight"
+	ng-controller="CrudCtrl as myc">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="text-center m-t-lg">
+				<h1>Crud view</h1>
+				<p>
+					<small>Configure in config.js as Stef state.
+						{{myc.crudTitle}} after</small>
+				</p>
+			</div>
+		</div>
+	</div>
+	<h1>AJava EE - Angular Application</h1>
+
+	<br />
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="AlertMessagesCtrl as myt">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+			testalert :: {{myt.testAlert}}
+			
+	</div>
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
+	<div class="grid" ng-controller="RestoListCtrl as rlist">
+		<div>
+			<h3>List Restos</h3>
+		</div>
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="restos.totalResults" items-per-page="restos.pageSize"
+			ng-model="restos.currentPage" ng-change="refreshGrid()">
+		</pagination>
+		
+		Restos: {{restos}}
+	</div>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+	<div class="form" ng-controller="RestoFormCtrl as rform">
+		<!-- Verify person, if there is no id present, that we are Adding a Person -->
+		<div ng-if="resto.restoId == null">
+			<h3>Add Person</h3>
+		</div>
+		<!-- Otherwise it's an Edit -->
+		<div ng-if="resto.restoId != null">
+			<h3>Edit Resto</h3>
+		</div>
+		Resto: {{resto}}
+
+		<div>
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+			<form name="restoForm" ng-submit="updateResto()" novalidate>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : restoForm.name.$invalid && restoForm.name.$invalid.name.$dirty}">
+					<label for="name">Name:</label>
+					<!-- Display a check when the field is valid and was modified -->
+					<span
+						ng-class="{'glyphicon glyphicon-ok' : restoForm.name.$valid && restoForm.name.$dirty}"></span>
+
+					<input id="name" name="name" type="text" class="form-control"
+						maxlength="50" ng-model="resto.name" required ng-minlength="2"
+						ng-maxlength="50" />
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block" ng-show="restoForm.name.$error.required">Add
+						Name.</p>
+					<p class="help-block" ng-show="restoForm.name.$error.minlength">Name
+						must be at least 2 characters long.</p>
+					<p class="help-block" ng-show="restoForm.name.$error.maxlength">Name
+						cannot be longer than 50 characters.</p>
+				</div>
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : restoForm.description.$invalid && restoForm.description.$dirty}">
+					<label for="description">Description:</label>
+					<!-- Display a check when the field is valid and was modified -->
+					<span
+						ng-class="{'glyphicon glyphicon-ok' : restoForm.description.$valid && restoForm.description.$dirty}"></span>
+
+					<input id="description" name="description" type="text"
+						class="form-control" maxlength="100" ng-model="resto.description"
+						required ng-minlength="5" ng-maxlength="100" />
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="restoForm.description.$error.required">Add
+						Description.</p>
+					<p class="help-block"
+						ng-show="restoForm.description.$error.minlength">Description
+						must be at least 5 characters long.</p>
+					<p class="help-block"
+						ng-show="restoForm.description.$error.maxlength">Description
+						cannot be longer than 100 characters.</p>
+				</div>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+
+
+				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+				<div class="buttons">
+					<button type="button" class="btn btn-primary"
+						ng-click="clearForm()">Clear</button>
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="restoForm.$invalid">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
