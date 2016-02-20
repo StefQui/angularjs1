@@ -9,7 +9,7 @@ console.log('start app.js');
 	console.log('start app.js3');
     angular.module('inspinia', [
 'myconstants',
-
+'ngSanitize',
         'ui.router',                    // Routing
         'oc.lazyLoad',
         'ui.bootstrap','ngResource'

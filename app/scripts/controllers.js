@@ -23,7 +23,19 @@ function StefCtrl($scope,restoService,ENV,$http) {
 	$scope.reponse = "hello1";
 	$scope.reponse2 = "hello2";
 
-	this.testServer = function() {
+	this.testClick = function() {
+		$scope.aftClick = "<div> <b>yop</b> {{myc.stefTitle}}</div>";
+		var myEl = angular.element( document.querySelector( '#titi' ) );
+//		document.getElementById("titi").innerHTML("yes");
+		$scope.myHTML =
+		     'I am an <code>HTML</code>string with ' +
+		     '<a href="#">links!</a> and{{myc.stefTitle}} other <em>stuff</em>';
+		myEl.html("<div> <b>yop</b> </div>");
+		myEl.html("<div> <b>yop</b> <div ng-bind-html=\"coucou<i>hello</i>{{myc.stefTitle}}\"></div></div>");
+		
+		
+	}
+		this.testServer = function() {
         toastr.options = {
       		  "closeButton": false,
       		  "debug": false,
