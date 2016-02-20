@@ -7,4 +7,5 @@ dist
 bower_components
 .tmp
 .settings
+src/main/webapp
 
